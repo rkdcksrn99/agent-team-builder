@@ -36,6 +36,17 @@ Vague agent-to-agent connections ("Agent A feeds Agent B") are flagged and rejec
 
 The skill is designed to lead with a recommendation rather than present open-ended choices. Users provide project context; the skill returns a concrete architecture proposal with reasoning. Users can override any decision, but the default is a specific point of view — which produces better outcomes than asking users to choose from an undifferentiated list of options.
 
+### Expert Advisor by Default
+
+For any project with meaningful domain complexity, the skill automatically recommends at least one **Expert Advisor agent** — a specialist with deep, practitioner-grade knowledge of the relevant field. This isn't a generic "research agent"; it's a named domain authority with a specific scope.
+
+Examples:
+- A trading dashboard gets an **Options Flow Analyst** — not just a "Finance Agent"
+- A security scanner gets a **Threat Modeling Expert** — not just a "Security Agent"
+- A data pipeline gets a **Pipeline Reliability Engineer** — not just a "Data Agent"
+
+The Expert Advisor's job is to make domain-specific decisions that generalist agents shouldn't be trusted to make on their own — signal interpretation, risk flagging, compliance checks, architecture validation against domain best practices. Only truly general projects (a personal diary, a simple to-do app) skip this role. When in doubt, the skill includes one.
+
 ---
 
 ## Workflow
@@ -45,7 +56,7 @@ The skill follows a 7-step process designed to prevent common failure modes in a
 | Step | Description |
 |---|---|
 | 1. Project Interview | Collects project goals, tech stack, subscription tier, priorities, risks, and timeline |
-| 2. Architecture Recommendation | Proposes complexity tier, agent roster, token budgets, and efficiency rationale |
+| 2. Architecture Recommendation | Proposes complexity tier, agent roster including domain Expert Advisor, token budgets, and efficiency rationale |
 | 3. Fine-Tuning | User reviews and adjusts the roster; skill pushes back on redundancy |
 | 4. Communication Patterns | Recommends Sequential, Hub & Spoke, Parallel, or Hybrid pattern with full handoff specs |
 | 5. Team Validation | Validates each agent against a quality checklist before any files are generated |
@@ -76,7 +87,7 @@ The skill follows a 7-step process designed to prevent common failure modes in a
 ### Via folder
 
 ```bash
-git clone https://github.com/rkldcksrn99/agent-team-builder.git
+git clone https://github.com/rkdcksrn99/agent-team-builder.git
 cp -r agent-team-builder ~/.claude/skills/
 ```
 
@@ -106,7 +117,8 @@ agent-team-builder/
     ├── communication-patterns.md     # Pattern specs, decision tree, handoff templates
     ├── token-efficiency.md           # Token budgeting rules, waste patterns, payload templates
     ├── file-templates.md             # CLAUDE.md, AGENT_CONFIG.md, TEAMS.md templates
-    └── spawn-templates.md            # spawn_team.sh and spawn_team.py boilerplate
+    ├── spawn-templates.md            # spawn_team.sh and spawn_team.py boilerplate
+    └── EXPERT_ADVISORS.md            # Practitioner-grade domain knowledge for Finance, Cybersecurity, DevOps, Data Engineering, Blockchain, and more
 ```
 
 Reference files use progressive disclosure — they are loaded by the skill only when the relevant step is reached, keeping base context lean.
@@ -128,9 +140,9 @@ Reference files use progressive disclosure — they are loaded by the skill only
 
 | Tier | Max Agents | Strategy |
 |---|---|---|
-| Free / Pro | 2–3 | Lean context, aggressive summarization, minimal handoff payloads |
-| Team | 3–5 | Balanced separation of concerns, structured JSON payloads |
-| Enterprise / Max | 5–8 | Full specialization supported, richer context permitted |
+| Pro | 2–3 | Lean context, aggressive summarization, minimal handoff payloads |
+| Max 5x / Team | 3–5 | Balanced separation of concerns, structured JSON payloads |
+| Max 20x / Enterprise | 5–8 | Full specialization supported, richer context permitted |
 
 ---
 
