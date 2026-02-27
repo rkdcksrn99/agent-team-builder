@@ -23,32 +23,64 @@ The workflow has 7 steps. Work through them in order. Don't skip ahead or genera
 
 ## 🎯 Step 1: Project Interview
 
-Start with a short conversational message asking 3 open-ended questions — keep it friendly, not a wall of text:
+This step has four parts. Do them **strictly sequentially** — never show the next part until the previous one is answered. Never show widgets and text questions at the same time.
 
-> "Let's scope this out before designing your team. A few quick questions:
-> 1. What is the project and what does it do?
-> 2. What does **done** look like — what can a user actually do when it's complete?
-> 3. What's your tech stack? (languages, frameworks, APIs, databases)"
+---
 
-Wait for their response. Then immediately follow up with two widget groups.
+**Part A — Foundation (text only, no widgets yet)**
 
-**Widget Group 1 — Project Context:**
+Ask these in a single friendly message and wait for the user to reply:
 
-Use `ask_user_input_v0` with these questions:
-- "What type of project is this?" (single_select: Web App, CLI Tool, Data Pipeline, API / Backend Service, AI / ML System, Other)
-- "Who is the end user?" (single_select: Just me, Small team 2–5, Large team 6+, External users)
-- "Existing codebase or starting fresh?" (single_select: Starting fresh, Existing codebase)
+> "Let's design your agent team. Three quick questions to start:
+> 1. **What is the project?** What does it do, and what does **done** look like — what can someone actually do with it when it's complete?
+> 2. **What's your tech stack?** Languages, frameworks, APIs, databases.
+> 3. **Do agents need to share data?** e.g. shared files, a database, a message queue — or does each agent work independently?"
 
-**Widget Group 2 — Priorities & Constraints:**
+Wait for their answer before showing anything else.
 
-Use `ask_user_input_v0` with these questions:
-- "Rank your priorities" (rank_priorities: Speed of delivery, Code quality / maintainability, UI/UX polish, Performance / reliability, Security / compliance)
-- "What's your biggest risk or unknown?" (multi_select: Real-time data / WebSockets, Agent communication, State management, UI complexity, API integration, Performance at scale, Security, Not sure yet)
-- "Timeline pressure?" (single_select: Ship ASAP, Soft deadline, Fully exploratory)
-- "Claude Code subscription tier?" (single_select: Free / Pro, Team, Enterprise / Max)
-- "Team complexity preference?" (single_select: Lean — 2–3 agents, Balanced — 4–5 agents, Full — 6–8 agents, Recommend for me)
+---
 
-Wait for both widget groups to be answered before proceeding. The priority ranking, "done" description, and biggest risk are the three most critical inputs — they directly influence which agents get High token budget, which phase runs first, and whether a Research or Spike agent is needed. Everything downstream depends on this.
+**Part B — Context widgets (only after Part A is answered)**
+
+Say "Got it — a few quick ones:" then show Widget Group 1:
+
+Use `ask_user_input_v0`:
+- "Who is the end user?" (single_select: Just me, Small team 2–5, Large team 6+, External users / customers)
+- "Timeline pressure?" (single_select: Ship ASAP, Soft deadline — weeks, Exploratory — no rush)
+- "Claude subscription tier?" (single_select: Pro, Max 5x, Max 20x, Team, Enterprise)
+- "Any hard constraints?" (multi_select: Air-gapped / offline, Strict security / compliance, Low latency required, Cost must be minimal, No external APIs, None)
+
+Wait for Widget Group 1 to be answered before continuing.
+
+---
+
+**Part C — Architecture widgets (only after Part B is answered)**
+
+Based on their subscription tier from Part B, show Widget Group 2. Tailor the complexity options:
+- If **Pro** → only show Lean (2–3) and Balanced (4–5)
+- If **Max 5x / Team** → show all three
+- If **Max 20x / Enterprise** → show all three, note Full is fully supported
+
+Use `ask_user_input_v0`:
+- "Existing codebase or starting fresh?" (single_select: Starting fresh, Existing codebase — I'll share context)
+- "How much human involvement do you want?" (single_select: Fully autonomous — agents run end to end, Checkpoints — agents pause for my approval at key steps, Supervised — I want to review most decisions)
+- "Team complexity preference?" (single_select: Lean — 2–3 agents fast and focused, Balanced — 4–5 agents good separation, Full — 6–8 agents maximum specialization, Recommend for me)
+
+Wait for Widget Group 2 to be answered before continuing.
+
+---
+
+**Part D — Priorities (only after Part C is answered)**
+
+Now that you know the project type, stack, and constraints, show Widget Group 3 — the priority questions are more meaningful with that context in hand:
+
+Use `ask_user_input_v0`:
+- "Rank your priorities for this project" (rank_priorities: Speed of delivery, Code quality / maintainability, UI/UX polish, Performance / reliability, Security / compliance)
+- "What's your biggest risk or unknown?" (multi_select options should be tailored based on their tech stack and project type from Part A — pick the most relevant from: Real-time data / WebSockets, Agent communication & handoffs, State management, UI complexity, API rate limits / reliability, Database design, Performance at scale, Security & auth, Testing & QA coverage, Not sure yet)
+
+---
+
+Only after all four parts are complete, move to Step 2. The priority ranking, human involvement preference, shared data answer, and biggest risk are the most critical inputs — they directly shape agent count, communication pattern, token budgets, and whether a Spike or Research agent is needed.
 
 ---
 
