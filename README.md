@@ -1,14 +1,14 @@
 # Agent Team Builder
 
-**A Claude Code skill for designing and scaffolding production-ready multi-agent AI systems.**
+**A Claude Code skill for designing and scaffolding production-ready agent teams for Claude Code.**
 
-Agent Team Builder acts as an opinionated architecture consultant — it interviews you about your project, recommends a token-efficient agent roster tailored to your Claude subscription tier, defines explicit communication patterns and handoff contracts between agents, validates the architecture before committing to files, and generates a complete set of production-ready configuration documents.
+Building an **Agent Team** in Claude Code starts with architecture — and that's exactly what this skill handles. Agent Team Builder acts as an opinionated architecture consultant that helps you design, scope, and scaffold your Agent Team from the ground up. It interviews you about your project, recommends a token-efficient Agent Team roster tailored to your Claude subscription tier, defines explicit communication patterns and handoff contracts between agents, validates the architecture before committing to files, and generates a complete set of production-ready configuration documents ready for Claude Code.
 
 ---
 
 ## Overview
 
-Multi-agent systems in Claude Code are powerful but easy to over-engineer. The most common failure modes — redundant agents, bloated context passing, vague handoff specs, and CLAUDE.md files that grow without bound — all stem from skipping the architecture step and jumping straight to implementation.
+Agent teams in Claude Code are powerful but easy to over-engineer. The most common failure modes — redundant agents, bloated context passing, vague handoff specs, and CLAUDE.md files that grow without bound — all stem from skipping the architecture step and jumping straight to implementation.
 
 This skill enforces a structured 7-step workflow that mirrors how a professional systems architect would approach the problem: scope first, design second, generate files last.
 
@@ -40,7 +40,7 @@ The skill is designed to lead with a recommendation rather than present open-end
 
 ## Workflow
 
-The skill follows a 7-step process designed to prevent common failure modes in multi-agent system design:
+The skill follows a 7-step process designed to prevent common failure modes in agent team design:
 
 | Step | Description |
 |---|---|
@@ -87,9 +87,9 @@ cp -r agent-team-builder ~/.claude/skills/
 Once installed, describe your project in Claude Code and the skill triggers automatically:
 
 ```
-"Help me design a multi-agent team for my options flow analysis system"
+"Help me design a agent team for my options flow analysis system"
 "I want to build a Claude Code agent architecture for a data pipeline"
-"Set up a multi-agent system for automated security scanning"
+"Set up a agent team for automated security scanning"
 ```
 
 ---
