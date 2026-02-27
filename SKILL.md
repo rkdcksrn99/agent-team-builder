@@ -23,30 +23,32 @@ The workflow has 7 steps. Work through them in order. Don't skip ahead or genera
 
 ## 🎯 Step 1: Project Interview
 
-Start here. Ask the user all of these questions at once, in a friendly conversational format — don't drip them one at a time:
+Start with a short conversational message asking 3 open-ended questions — keep it friendly, not a wall of text:
 
-- **What is the project?** One or two sentences on what it does.
-- **What is the primary goal?** The core job this agent team needs to accomplish.
-- **What does "done" look like?** Describe the finished product in 2–3 sentences — what can a user actually do with it when it's complete? This is the most important question — it defines scope.
-- **Who is the end user?** Just you, your team, or external users? This affects how much UI polish and reliability the team needs to prioritize.
-- **What is the #1 priority for this project?** Ask them to rank these:
-  - Speed of delivery — get something working fast
-  - Code quality / maintainability — built to last
-  - UI/UX polish — looks and feels great
-  - Performance / reliability — handles load, doesn't break
-  - Security / compliance — locked down
-- **What's the biggest risk or unknown?** What part are they most unsure about or worried could go wrong? This often reveals a need for a Research or Spike agent.
-- **Timeline pressure?** Hard deadline, soft target, or purely exploratory?
-- **Tech stack** — languages, frameworks, APIs, databases.
-- **Claude Code subscription tier** — this shapes how big and complex the team can be:
-  - *Free / Pro* — lean teams only (2–3 agents max), limited context windows
-  - *Team* — balanced teams work well (3–5 agents)
-  - *Enterprise / Max* — full teams supported (5–8 agents), richer context OK
-- **Complexity preference** — do they want you to recommend, or do they have a target size in mind? Give them the options: Lean (2–3), Balanced (4–5), or Full (6–8).
-- **Any hard constraints?** Security requirements, compliance, latency, air-gapped environments, etc.
-- **Existing codebase or starting fresh?**
+> "Let's scope this out before designing your team. A few quick questions:
+> 1. What is the project and what does it do?
+> 2. What does **done** look like — what can a user actually do when it's complete?
+> 3. What's your tech stack? (languages, frameworks, APIs, databases)"
 
-Wait for their answers before moving on. The priority ranking, "done" description, and biggest risk are the three most critical inputs — they directly influence which agents get High token budget, which phase runs first, and whether a Research or Spike agent is needed. Everything downstream depends on this.
+Wait for their response. Then immediately follow up with two widget groups.
+
+**Widget Group 1 — Project Context:**
+
+Use `ask_user_input_v0` with these questions:
+- "What type of project is this?" (single_select: Web App, CLI Tool, Data Pipeline, API / Backend Service, AI / ML System, Other)
+- "Who is the end user?" (single_select: Just me, Small team 2–5, Large team 6+, External users)
+- "Existing codebase or starting fresh?" (single_select: Starting fresh, Existing codebase)
+
+**Widget Group 2 — Priorities & Constraints:**
+
+Use `ask_user_input_v0` with these questions:
+- "Rank your priorities" (rank_priorities: Speed of delivery, Code quality / maintainability, UI/UX polish, Performance / reliability, Security / compliance)
+- "What's your biggest risk or unknown?" (multi_select: Real-time data / WebSockets, Agent communication, State management, UI complexity, API integration, Performance at scale, Security, Not sure yet)
+- "Timeline pressure?" (single_select: Ship ASAP, Soft deadline, Fully exploratory)
+- "Claude Code subscription tier?" (single_select: Free / Pro, Team, Enterprise / Max)
+- "Team complexity preference?" (single_select: Lean — 2–3 agents, Balanced — 4–5 agents, Full — 6–8 agents, Recommend for me)
+
+Wait for both widget groups to be answered before proceeding. The priority ranking, "done" description, and biggest risk are the three most critical inputs — they directly influence which agents get High token budget, which phase runs first, and whether a Research or Spike agent is needed. Everything downstream depends on this.
 
 ---
 
