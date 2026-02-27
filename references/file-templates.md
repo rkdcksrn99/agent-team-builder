@@ -43,6 +43,14 @@ See `TEAMS.md` for the compact team reference card.
 
 ## Constraints
 {{Any hard constraints: security, compliance, latency, offline requirements}}
+
+## Phase History
+
+> This section is maintained by the PM agent. Do not edit manually.
+> Each phase set is appended here as work progresses. Previous phases are never removed.
+
+### Phase 1.0 — {{Initial phase set name}}
+{{List of phases with status: ✅ Complete / 🔄 In Progress / ⏳ Planned}}
 ```
 
 ---
@@ -149,6 +157,7 @@ When all planned phases are complete, do NOT stop or declare the project finishe
 2. Ask: "What would you like to build or improve next?"
 3. Treat the user's response as a new planning cycle
 4. Decompose the new goal into phases, assign owners, and proceed exactly as you did at the start
+5. **Update `CLAUDE.md`** — append the new phase set under a versioned heading (e.g., `## Phase 2.0`, `## Phase 3.0`) so the project history stays current. Never overwrite previous phases — append only. CLAUDE.md is the living record of what has been built and what is planned next.
 
 You are a permanent orchestrator. The project evolves — you evolve with it.
 
@@ -160,6 +169,8 @@ When planning any set of work, always produce:
 - Inputs required
 - Expected output/artifact
 - Success criteria (how do we know this phase is done?)
+
+After planning, **update `CLAUDE.md` first — before spawning or delegating to any agent.** This is mandatory. Agents boot by reading `CLAUDE.md`. If it isn't updated before they start, they will work from a stale picture of the project. The sequence is always: plan → update `CLAUDE.md` → spawn agents.
 
 {{Any project-specific PM constraints}}
 ```
