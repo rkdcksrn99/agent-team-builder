@@ -46,6 +46,7 @@ Say "Got it — a few quick ones:" then show Widget Group 1:
 
 Use `ask_user_input_v0`:
 - "Who is the end user?" (single_select: Just me, Small team 2–5, Large team 6+, External users / customers)
+- "Does this project involve a specialized domain?" (multi_select: Finance / Trading, Cybersecurity, DevOps / Infrastructure, Data Engineering, Blockchain / Web3, Healthcare, Legal, Sports / Analytics, Machine Learning / AI, Networking, Other specialized domain, No — it's a general project)
 - "Timeline pressure?" (single_select: Ship ASAP, Soft deadline — weeks, Exploratory — no rush)
 - "Claude subscription tier?" (single_select: Pro, Max 5x, Max 20x, Team, Enterprise)
 - "Any hard constraints?" (multi_select: Air-gapped / offline, Strict security / compliance, Low latency required, Cost must be minimal, No external APIs, None)
@@ -90,8 +91,20 @@ Now put on your consultant hat. Based on what they told you, give them a concret
 
 **Complexity tier:** State which tier you're recommending and *why*. For example: "Given your Team subscription and the multi-pipeline nature of this project, I'd go Balanced — 4 agents gives you clean separation without burning unnecessary context."
 
+**Expert Advisor Assessment:** Before finalizing the roster, determine whether this project warrants a domain Expert Advisor agent. Load [📚 Expert Advisor Domains](./references/EXPERT_ADVISORS.md) to inform this decision.
+
+The rule is simple — **include an Expert Advisor unless the project is clearly general-purpose** (e.g., a personal diary app, a simple to-do list, a basic CRUD app with no domain complexity). If there is any meaningful domain knowledge involved — finance, security, infrastructure, data, healthcare, sports analytics, legal, ML, networking, blockchain, or anything requiring specialist reasoning — include one. When in doubt, include it.
+
+For each Expert Advisor in the roster, define:
+- What domain it covers (be specific — "Options Flow Analyst" not just "Finance Expert")
+- What decisions it is the authority on within the team
+- What it produces (structured findings, risk flags, domain-validated specs, etc.)
+- Which other agents consume its output
+
+If the project spans multiple domains (e.g., a FinTech app with security requirements), recommend one primary Expert Advisor and note the secondary domain as a capability the primary agent should cover, rather than adding two separate expert agents unless the team is Full tier.
+
 **Proposed agent roster:** For each agent, lay out:
-- Role name (e.g., PM Agent, Coder Agent, QA Agent)
+- Role name (e.g., PM Agent, Options Flow Analyst, Coder Agent, QA Agent)
 - One-sentence responsibility — what is this agent's *one job*?
 - Primary inputs — what does it receive?
 - Primary outputs — what does it produce?
@@ -194,3 +207,4 @@ Load these as needed — don't load all of them upfront.
 - [📊 Token Efficiency Guide](./references/token-efficiency.md) — Load during Steps 2 and 6. Tier budgets, the 5 efficiency rules, common waste patterns.
 - [📄 File Templates](./references/file-templates.md) — Load during Step 6. Full templates for CLAUDE.md, AGENT_CONFIG.md, and TEAMS.md.
 - [🚀 Spawn Templates](./references/spawn-templates.md) — Load during Step 7 only if user wants a spawn script. bash and Python boilerplate for all four patterns.
+- [📚 Expert Advisor Domains](./references/EXPERT_ADVISORS.md) — Load during Step 2 when the project involves a specialized domain. Contains practitioner-grade vocabulary, decision frameworks, and knowledge base structure for Finance, Cybersecurity, DevOps, Data Engineering, Blockchain, and more.
